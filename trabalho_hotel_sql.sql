@@ -7,6 +7,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
+select version();
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
@@ -40,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Estado` (
   `nome` VARCHAR(45) NOT NULL,
   `uf` VARCHAR(2) NOT NULL,
   PRIMARY KEY (`idEstado`),
-  UNIQUE INDEX `nome_UNIQUE` (`nome` ASC) VISIBLE,
-  UNIQUE INDEX `uf_UNIQUE` (`uf` ASC) VISIBLE,
-  UNIQUE INDEX `idEstado_UNIQUE` (`idEstado` ASC) VISIBLE)
+  UNIQUE INDEX `nome_UNIQUE` (`nome` ASC) ,
+  UNIQUE INDEX `uf_UNIQUE` (`uf` ASC),
+  UNIQUE INDEX idEstado_UNIQUE (idEstado ASC))
 ENGINE = InnoDB;
 
 
@@ -56,9 +57,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Cidade` (
   `nome` VARCHAR(45) NOT NULL,
   `Estado_idEstado` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`idCidade`),
-  UNIQUE INDEX `nome_UNIQUE` (`nome` ASC) VISIBLE,
-  INDEX `fk_Cidade_Estado3_idx` (`Estado_idEstado` ASC) VISIBLE,
-  UNIQUE INDEX `idCidade_UNIQUE` (`idCidade` ASC) VISIBLE,
+  UNIQUE INDEX `nome_UNIQUE` (`nome` ASC),
+  INDEX `fk_Cidade_Estado3_idx` (`Estado_idEstado` ASC),
+  UNIQUE INDEX `idCidade_UNIQUE` (`idCidade` ASC),
   CONSTRAINT `fk_Cidade_Estado3`
     FOREIGN KEY (`Estado_idEstado`)
     REFERENCES `mydb`.`Estado` (`idEstado`)
@@ -77,8 +78,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Bairro` (
   `nome` VARCHAR(45) NOT NULL,
   `Cidade_idCidade` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`idBairro`),
-  UNIQUE INDEX `idBairro_UNIQUE` (`idBairro` ASC) VISIBLE,
-  INDEX `fk_Bairro_Cidade1_idx` (`Cidade_idCidade` ASC) VISIBLE,
+  UNIQUE INDEX `idBairro_UNIQUE` (`idBairro` ASC) ,
+  INDEX `fk_Bairro_Cidade1_idx` (`Cidade_idCidade` ASC) ,
   CONSTRAINT `fk_Bairro_Cidade1`
     FOREIGN KEY (`Cidade_idCidade`)
     REFERENCES `mydb`.`Cidade` (`idCidade`)
@@ -101,8 +102,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Hospede` (
   `Bairro_idBairro` INT UNSIGNED NOT NULL,
   `CEP` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`idHospede`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  INDEX `fk_Hospede_Bairro1_idx` (`Bairro_idBairro` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
+  INDEX `fk_Hospede_Bairro1_idx` (`Bairro_idBairro` ASC) ,
   CONSTRAINT `fk_Hospede_Bairro1`
     FOREIGN KEY (`Bairro_idBairro`)
     REFERENCES `mydb`.`Bairro` (`idBairro`)
@@ -121,8 +122,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Pessoa_Fisica` (
   `RG` BIGINT NOT NULL,
   `Hospede_idHospede` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`Hospede_idHospede`),
-  UNIQUE INDEX `CPF_UNIQUE` (`CPF` ASC) VISIBLE,
-  UNIQUE INDEX `RG_UNIQUE` (`RG` ASC) VISIBLE,
+  UNIQUE INDEX `CPF_UNIQUE` (`CPF` ASC) ,
+  UNIQUE INDEX `RG_UNIQUE` (`RG` ASC) ,
   CONSTRAINT `fk_Pessoa_Fisica_Hospede1`
     FOREIGN KEY (`Hospede_idHospede`)
     REFERENCES `mydb`.`Hospede` (`idHospede`)
@@ -141,10 +142,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Pessoa_Juridica` (
   `IE` BIGINT NOT NULL,
   `Hospede_idHospede` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`Hospede_idHospede`),
-  UNIQUE INDEX `IE_UNIQUE` (`IE` ASC) VISIBLE,
-  UNIQUE INDEX `CNPJ_UNIQUE` (`CNPJ` ASC) VISIBLE,
-  INDEX `fk_Pessoa_Juridica_Hospede1_idx` (`Hospede_idHospede` ASC) VISIBLE,
-  UNIQUE INDEX `Hospede_idHospede_UNIQUE` (`Hospede_idHospede` ASC) VISIBLE,
+  UNIQUE INDEX `IE_UNIQUE` (`IE` ASC) ,
+  UNIQUE INDEX `CNPJ_UNIQUE` (`CNPJ` ASC) ,
+  INDEX `fk_Pessoa_Juridica_Hospede1_idx` (`Hospede_idHospede` ASC) ,
+  UNIQUE INDEX `Hospede_idHospede_UNIQUE` (`Hospede_idHospede` ASC) ,
   CONSTRAINT `fk_Pessoa_Juridica_Hospede1`
     FOREIGN KEY (`Hospede_idHospede`)
     REFERENCES `mydb`.`Hospede` (`idHospede`)
@@ -166,8 +167,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Reserva` (
   `Hospede_idHospede` INT UNSIGNED NOT NULL,
   `valor_final` FLOAT UNSIGNED NOT NULL,
   PRIMARY KEY (`idReserva`),
-  INDEX `fk_Reserva_Hotel1_idx` (`Hotel_idHotel` ASC) VISIBLE,
-  INDEX `fk_Reserva_Hospede1_idx` (`Hospede_idHospede` ASC) VISIBLE,
+  INDEX `fk_Reserva_Hotel1_idx` (`Hotel_idHotel` ASC) ,
+  INDEX `fk_Reserva_Hospede1_idx` (`Hospede_idHospede` ASC) ,
   CONSTRAINT `fk_Reserva_Hotel1`
     FOREIGN KEY (`Hotel_idHotel`)
     REFERENCES `mydb`.`Hotel` (`idHotel`)
@@ -192,8 +193,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Categoria` (
   `valor_diaria` FLOAT UNSIGNED NOT NULL,
   `descricao` LONGTEXT NULL,
   PRIMARY KEY (`idCategoria`),
-  UNIQUE INDEX `idCategoria_UNIQUE` (`idCategoria` ASC) VISIBLE,
-  UNIQUE INDEX `nome_categoria_UNIQUE` (`nome_categoria` ASC) VISIBLE)
+  UNIQUE INDEX `idCategoria_UNIQUE` (`idCategoria` ASC) ,
+  UNIQUE INDEX `nome_categoria_UNIQUE` (`nome_categoria` ASC) )
 ENGINE = InnoDB;
 
 
@@ -207,8 +208,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Quarto` (
   `numero` INT NOT NULL,
   `Categoria_idCategoria` INT NOT NULL,
   PRIMARY KEY (`idQuarto`),
-  UNIQUE INDEX `numero_UNIQUE` (`numero` ASC) VISIBLE,
-  INDEX `fk_Quarto_Categoria1_idx` (`Categoria_idCategoria` ASC) VISIBLE,
+  UNIQUE INDEX `numero_UNIQUE` (`numero` ASC) ,
+  INDEX `fk_Quarto_Categoria1_idx` (`Categoria_idCategoria` ASC) ,
   CONSTRAINT `fk_Quarto_Categoria1`
     FOREIGN KEY (`Categoria_idCategoria`)
     REFERENCES `mydb`.`Categoria` (`idCategoria`)
@@ -226,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`telefone` (
   `idtelefone` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `numero_telefone` BIGINT NOT NULL,
   PRIMARY KEY (`idtelefone`),
-  UNIQUE INDEX `idtelefone_UNIQUE` (`idtelefone` ASC) VISIBLE)
+  UNIQUE INDEX `idtelefone_UNIQUE` (`idtelefone` ASC) )
 ENGINE = InnoDB;
 
 
@@ -239,8 +240,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`telefone_has_Hospede` (
   `telefone_idtelefone` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Hospede_idHospede` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`telefone_idtelefone`, `Hospede_idHospede`),
-  INDEX `fk_telefone_has_Hospede_Hospede1_idx` (`Hospede_idHospede` ASC) VISIBLE,
-  INDEX `fk_telefone_has_Hospede_telefone1_idx` (`telefone_idtelefone` ASC) VISIBLE,
+  INDEX `fk_telefone_has_Hospede_Hospede1_idx` (`Hospede_idHospede` ASC) ,
+  INDEX `fk_telefone_has_Hospede_telefone1_idx` (`telefone_idtelefone` ASC) ,
   CONSTRAINT `fk_telefone_has_Hospede_telefone1`
     FOREIGN KEY (`telefone_idtelefone`)
     REFERENCES `mydb`.`telefone` (`idtelefone`)
@@ -265,8 +266,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`servico_de_quarto` (
   `conta_idconta` INT UNSIGNED NOT NULL,
   `Reserva_idReserva` INT NOT NULL,
   PRIMARY KEY (`idservico_de_quarto`),
-  UNIQUE INDEX `idservico_de_quarto_UNIQUE` (`idservico_de_quarto` ASC) VISIBLE,
-  INDEX `fk_servico_de_quarto_Reserva1_idx` (`Reserva_idReserva` ASC) VISIBLE,
+  UNIQUE INDEX `idservico_de_quarto_UNIQUE` (`idservico_de_quarto` ASC) ,
+  INDEX `fk_servico_de_quarto_Reserva1_idx` (`Reserva_idReserva` ASC) ,
   CONSTRAINT `fk_servico_de_quarto_Reserva1`
     FOREIGN KEY (`Reserva_idReserva`)
     REFERENCES `mydb`.`Reserva` (`idReserva`)
@@ -286,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
   `nome` VARCHAR(45) NOT NULL,
   `descricao` LONGTEXT NULL,
   PRIMARY KEY (`idproduto`),
-  UNIQUE INDEX `idproduto_UNIQUE` (`idproduto` ASC) VISIBLE)
+  UNIQUE INDEX `idproduto_UNIQUE` (`idproduto` ASC) )
 ENGINE = InnoDB;
 
 
@@ -301,8 +302,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`servico_de_quarto_has_produto` (
   `quantidade` SMALLINT(4) UNSIGNED NOT NULL,
   `valor_unitario` FLOAT UNSIGNED NOT NULL,
   PRIMARY KEY (`servico_de_quarto_idservico_de_quarto`, `produto_idproduto`),
-  INDEX `fk_servico_de_quarto_has_produto_produto1_idx` (`produto_idproduto` ASC) VISIBLE,
-  INDEX `fk_servico_de_quarto_has_produto_servico_de_quarto1_idx` (`servico_de_quarto_idservico_de_quarto` ASC) VISIBLE,
+  INDEX `fk_servico_de_quarto_has_produto_produto1_idx` (`produto_idproduto` ASC) ,
+  INDEX `fk_servico_de_quarto_has_produto_servico_de_quarto1_idx` (`servico_de_quarto_idservico_de_quarto` ASC) ,
   CONSTRAINT `fk_servico_de_quarto_has_produto_servico_de_quarto1`
     FOREIGN KEY (`servico_de_quarto_idservico_de_quarto`)
     REFERENCES `mydb`.`servico_de_quarto` (`idservico_de_quarto`)
@@ -325,8 +326,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Reserva_has_Quarto` (
   `Reserva_idReserva` INT NOT NULL,
   `Quarto_idQuarto` INT NOT NULL,
   PRIMARY KEY (`Reserva_idReserva`, `Quarto_idQuarto`),
-  INDEX `fk_Reserva_has_Quarto_Quarto1_idx` (`Quarto_idQuarto` ASC) VISIBLE,
-  INDEX `fk_Reserva_has_Quarto_Reserva1_idx` (`Reserva_idReserva` ASC) VISIBLE,
+  INDEX `fk_Reserva_has_Quarto_Quarto1_idx` (`Quarto_idQuarto` ASC) ,
+  INDEX `fk_Reserva_has_Quarto_Reserva1_idx` (`Reserva_idReserva` ASC) ,
   CONSTRAINT `fk_Reserva_has_Quarto_Reserva1`
     FOREIGN KEY (`Reserva_idReserva`)
     REFERENCES `mydb`.`Reserva` (`idReserva`)
