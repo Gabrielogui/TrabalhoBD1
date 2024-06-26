@@ -24,6 +24,21 @@ INSERT INTO mydb.estado (idestado, nome, uf) VALUES
 
 -- Inserir dados na tabela Cidade
 INSERT INTO mydb.cidade (idcidade, nome, Estado_idEstado) VALUES
+(1, 'São Paulo', 1),
+(2, 'Rio de Janeiro', 2),
+(3, 'Belo Horizonte', 3),
+(4, 'Vitória', 4),
+(5, 'Salvador', 5),
+(6, 'Curitiba', 6),
+(7, 'Florianópolis', 7),
+(8, 'Porto Alegre', 8),
+(9, 'Goiânia', 9),
+(10, 'Cuiabá', 10),
+(11, 'Campo Grande', 11),
+(12, 'Brasília', 12),
+(13, 'Recife', 13),
+(14, 'Fortaleza', 14),
+(15, 'Belém', 15),
 (16, 'Santos', 1),
 (17, 'Campinas', 1),
 (18, 'Niterói', 2),
@@ -57,6 +72,21 @@ INSERT INTO mydb.cidade (idcidade, nome, Estado_idEstado) VALUES
 
 -- Inserir dados na tabela Bairro
 INSERT INTO mydb.bairro (idbairro, nome, Cidade_idCidade) VALUES
+(1, 'Centro', 1),
+(2, 'Copacabana', 2),
+(3, 'Savassi', 3),
+(4, 'Praia do Canto', 4),
+(5, 'Barra', 5),
+(6, 'Batel', 6),
+(7, 'Trindade', 7),
+(8, 'Moinhos de Vento', 8),
+(9, 'Setor Bueno', 9),
+(10, 'Duque de Caxias', 10),
+(11, 'Jardim dos Estados', 11),
+(12, 'Asa Norte', 12),
+(13, 'Boa Viagem', 13),
+(14, 'Aldeota', 14),
+(15, 'Cidade Velha', 15),
 (16, 'Boqueirão', 16),
 (17, 'Gonzaga', 16),
 (18, 'Centro', 17),
@@ -248,6 +278,7 @@ INSERT INTO mydb.servico_de_quarto (idservico_de_quarto, valor_total, Reserva_id
 
 -- Inserir dados na tabela produto
 INSERT INTO mydb.produto (idproduto, valor, nome, descricao) VALUES
+(16, 25.53, 'Lasanha', 'Lasanha de Carne'),
 (1, 10.00, 'Água', 'Garrafa de água mineral'),
 (2, 20.00, 'Refrigerante', 'Lata de refrigerante'),
 (3, 30.00, 'Suco', 'Copo de suco natural'),
@@ -302,3 +333,18 @@ INSERT INTO mydb.Reserva_has_Quarto (Reserva_idReserva, Quarto_idQuarto) VALUES
 (16, 3),
 (17, 1),
 (18, 6);
+
+-- Atualizar o valor de um produto
+UPDATE produto
+SET valor = 160.00
+WHERE idproduto = 15;
+
+-- Deletar um hóspede
+DELETE FROM produto
+WHERE idproduto = 16;
+
+INSERT INTO mydb.produto (idproduto, valor, nome, descricao) VALUES
+(16, 25.53, 'Lasanha', 'Lasanha de Carne');
+
+select *
+from mydb.produto;
