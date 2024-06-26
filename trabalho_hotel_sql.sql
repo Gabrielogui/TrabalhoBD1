@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Hospede` (
   `nome_hospede` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `endereco` VARCHAR(45) NOT NULL,
-  `data_nascimento` BIGINT NULL,
+  `data_nascimento` DATE NULL,
   `Bairro_idBairro` INT UNSIGNED NOT NULL,
   `CEP` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`idHospede`),
@@ -263,7 +263,6 @@ DROP TABLE IF EXISTS `mydb`.`servico_de_quarto` ;
 CREATE TABLE IF NOT EXISTS `mydb`.`servico_de_quarto` (
   `idservico_de_quarto` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `valor_total` FLOAT NOT NULL,
-  `conta_idconta` INT UNSIGNED NOT NULL,
   `Reserva_idReserva` INT NOT NULL,
   PRIMARY KEY (`idservico_de_quarto`),
   UNIQUE INDEX `idservico_de_quarto_UNIQUE` (`idservico_de_quarto` ASC) ,
