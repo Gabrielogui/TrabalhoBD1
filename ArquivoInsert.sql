@@ -2,7 +2,7 @@
 
 -- Inserir dados na tabela Hotel
 INSERT INTO mydb.Hotel (idHotel, nome) VALUES
-(1, 'Hotel A'), (2, 'Hotel B'), (3, 'Hotel C');
+(1, 'Hotel Transilvania'), (2, 'Ibis Hotel'), (3, 'Le Royale Hotel');
 
 -- Inserir dados na tabela Estado
 INSERT INTO mydb.estado (idestado, nome, uf) VALUES
@@ -198,11 +198,9 @@ INSERT INTO mydb.Reserva (idReserva, check_in, check_out, Hotel_idHotel, Hospede
 
 -- Inserir dados na tabela Categoria
 INSERT INTO mydb.Categoria (idCategoria, nome_categoria, valor_diaria, descricao) VALUES
-(1, 'Categoria A', 100, 'Descricao A'), (2, 'Categoria B', 200, 'Descricao B'), (3, 'Categoria C', 300, 'Descricao C'),
-(4, 'Categoria D', 400, 'Descricao D'), (5, 'Categoria E', 500, 'Descricao E'), (6, 'Categoria F', 600, 'Descricao F'),
-(7, 'Categoria G', 700, 'Descricao G'), (8, 'Categoria H', 800, 'Descricao H'), (9, 'Categoria I', 900, 'Descricao I'),
-(10, 'Categoria J', 1000, 'Descricao J'), (11, 'Categoria K', 1100, 'Descricao K'), (12, 'Categoria L', 1200, 'Descricao L'),
-(13, 'Categoria M', 1300, 'Descricao M'), (14, 'Categoria N', 1400, 'Descricao N'), (15, 'Categoria O', 1500, 'Descricao O');
+(1, 'Standard', 100, 'Quarto simples, mas que cumpre com todas as necessidades.'), 
+(2, 'Luxo', '200', 'Quarto com um nível de conforto fora do comum.'), 
+(3, 'Presidencial', 1000, 'Tudo do bom e do melhor.');
 
 -- Inserir dados na tabela Quarto
 INSERT INTO mydb.quarto (idquarto, numero, Categoria_idcategoria) VALUES
